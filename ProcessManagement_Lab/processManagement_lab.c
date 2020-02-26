@@ -49,15 +49,15 @@ void job_dispatch(int i){
             sem_wait(sem_jobs_buffer[i]);
         }
         else if (j->task_status == 1) {
-            printf("Child process %d with pid %d doing job: %c%d\n", i, getpid(), j->task_type, j->task_duration);
+            //printf("Child process %d with pid %d doing job: %c%d\n", i, getpid(), j->task_type, j->task_duration);
             if (j->task_type == 'z') {
-                printf("Child process %d with pid %d has exited successfully\n", i, getpid());
+                //printf("Child process %d with pid %d has exited successfully\n", i, getpid());
                 j->task_status = 0;
                 exit(3);
             }
             else if (j->task_type == 't') {
                 task(j->task_duration);
-                printf("Child process %d with pid %d has completed task %c%d\n", i, getpid(), j->task_type, j->task_duration);
+                //printf("Child process %d with pid %d has completed task %c%d\n", i, getpid(), j->task_type, j->task_duration);
                 j->task_status = 0;
             }
             else if (j->task_type == 'w') {
@@ -65,7 +65,7 @@ void job_dispatch(int i){
                 j->task_status = 0;
             }
             else if (j->task_type == 'i') {
-                printf("ILLEGAL task %c%d encountered. Child process %d with pid %d has exited PREMATURELY\n", j->task_type, j->task_duration, i, getpid());
+                //printf("ILLEGAL task %c%d encountered. Child process %d with pid %d has exited PREMATURELY\n", j->task_type, j->task_duration, i, getpid());
                 kill(getpid(), SIGKILL);
             }
         }
@@ -254,7 +254,7 @@ void main_loop(char* fileName){
     }
     fclose(opened_file);
 
-    printf("Main process is going to send termination signals\n");
+    //printf("Main process is going to send termination signals\n");
 
     // TODO#4: Design a way to send termination jobs to ALL worker that are currently alive
     for (i=0; i<number_of_processes; i++) {
@@ -331,7 +331,7 @@ void cleanup(){
 // Real main
 int main(int argc, char* argv[]){
 
-    printf("Lab 1 Starts...\n");
+    //printf("Lab 1 Starts...\n");
 
     struct timeval start, end;
     long secs_used,micros_used;
